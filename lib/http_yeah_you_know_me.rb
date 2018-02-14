@@ -67,8 +67,10 @@ class HTTP
       shutdown_response
     when '/game'
       game_response
-    else
+    when '/'
       default_response
+    else
+      '404 Page Not Found'
     end
   end
 
