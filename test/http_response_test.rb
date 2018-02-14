@@ -48,6 +48,7 @@ class HTTP_Response_Test < Minitest::Test
   end
 
   def test_pages_increment_correctly
+    skip
     Faraday.get 'http://127.0.0.1:9292/hello'
     Faraday.get 'http://127.0.0.1:9292/hello'
     response = Faraday.get 'http://127.0.0.1:9292/hello'
@@ -78,6 +79,22 @@ class HTTP_Response_Test < Minitest::Test
     response = Faraday.get 'http://127.0.0.1:9292/shutdown'
 
     expect = '<html><head></head><body>Total Requests: 8'
+
+    assert_equal expect, response.body.split("<pre>")[0]
+  end
+
+  def test_word_is_a_word
+    response = Faraday.get 'http://127.0.0.1:9292/word_search?w=hello'
+
+    expect = '<html><head></head><body>hello is a known word'
+
+    assert_equal expect, response.body.split("<pre>")[0]
+  end
+
+  def test_word_is_not_a_word
+    response = Faraday.get 'http://127.0.0.1:9292/word_search?w=fipaloo'
+
+    expect = '<html><head></head><body>fipaloo is not a known word'
 
     assert_equal expect, response.body.split("<pre>")[0]
   end
