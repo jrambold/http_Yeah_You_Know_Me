@@ -1,4 +1,5 @@
 require 'socket'
+require './lib/guessing_game'
 
 # basic http server
 class HTTP
@@ -8,7 +9,7 @@ class HTTP
     @hello_count = -1
     @total_requests = 0
     @keep_alive = true
-    @dictionary = File.read('/usr/share/dict/words').split('\n')
+    @dictionary = File.read('/usr/share/dict/words').split
   end
 
   def start
@@ -18,7 +19,12 @@ class HTTP
       while (line = client.gets) && !line.chomp.empty?
         request_lines << line.chomp
       end
-      response = html_wrapper(request_lines, parse_request(request_lines))
+      verb = request_lines[0].split(' ')[0]
+      if verb == 'GET'
+        response = html_wrapper(request_lines, parse_request(request_lines))
+      elsif verb == 'POST'
+
+      end
       respond(client, response)
       client.close
     end
@@ -38,6 +44,8 @@ class HTTP
     when '/shutdown'
       @keep_alive = false
       shutdown_response
+    when 'game'
+      game_response
     else
       default_response
     end
@@ -68,11 +76,15 @@ class HTTP
   def word_search(params)
     params = params.split('&')
     words = params.map { |param| param.split('=') }
-    if @dictionary.include?(words[1])
-      "#{words[1]}is a known word"
+    if @dictionary.include?(words[0][1])
+      "#{words[0][1]} is a known word"
     else
-      "#{words[1]} is not a known word"
+      "#{words[0][1]} is not a known word"
     end
+  end
+
+  def game_response
+
   end
 
   def respond(client, output)
