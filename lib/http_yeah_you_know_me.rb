@@ -8,6 +8,7 @@ class HTTP
     @hello_count = -1
     @total_requests = 0
     @keep_alive = true
+    @dictionary = File.read('/usr/share/dict/words').split('\n')
   end
 
   def start
@@ -26,11 +27,15 @@ class HTTP
   def parse_request(request_lines)
     @total_requests += 1
     request = request_lines[0].split(' ')[1]
-    if request == '/hello'
+    request = request.split('?')
+    case request[0]
+    when '/hello'
       hello_response
-    elsif request == '/datetime'
+    when '/datetime'
       date_time_response
-    elsif request == '/shutdown'
+    when '/word_search'
+      word_search(request[1])
+    when '/shutdown'
       @keep_alive = false
       shutdown_response
     else
@@ -60,8 +65,14 @@ class HTTP
     Time.now.strftime('%r on %A, %B %e, %Y')
   end
 
-  def shutdown_response
-    "Total Requests: #{@total_requests}"
+  def word_search(params)
+    params = params.split('&')
+    words = params.map { |param| param.split('=') }
+    if @dictionary.include?(words[1])
+      "#{words[1]}is a known word"
+    else
+      "#{words[1]} is not a known word"
+    end
   end
 
   def respond(client, output)
