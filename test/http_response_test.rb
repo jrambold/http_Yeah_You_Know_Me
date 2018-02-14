@@ -84,6 +84,7 @@ class HTTP_Response_Test < Minitest::Test
   end
 
   def test_word_is_a_word
+    skip
     response = Faraday.get 'http://127.0.0.1:9292/word_search?w=hello'
 
     expect = '<html><head></head><body>hello is a known word'
@@ -92,10 +93,31 @@ class HTTP_Response_Test < Minitest::Test
   end
 
   def test_word_is_not_a_word
+    skip
     response = Faraday.get 'http://127.0.0.1:9292/word_search?w=fipaloo'
 
     expect = '<html><head></head><body>fipaloo is not a known word'
 
     assert_equal expect, response.body.split("<pre>")[0]
+  end
+
+  def test_can_send_post_to_server
+    skip
+    send = Faraday.new(:url => 'http://127.0.0.1:9292')
+    response = send.post '/start_game'
+
+    expect = 'Good luck!'
+
+    assert_equal expect, response.body.split("<pre>")[0]
+  end
+
+  def test_can_send_make_guess
+    send = Faraday.new(:url => 'http://127.0.0.1:9292')
+    send.post '/start_game'
+    response = send.post '/game', { :guess => 50 }
+
+    expect = 302
+
+    assert_equal expect, response.status
   end
 end

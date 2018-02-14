@@ -19,15 +19,36 @@ class HTTP
       while (line = client.gets) && !line.chomp.empty?
         request_lines << line.chomp
       end
-      verb = request_lines[0].split(' ')[0]
-      if verb == 'GET'
-        response = html_wrapper(request_lines, parse_request(request_lines))
-      elsif verb == 'POST'
-
-      end
-      respond(client, response)
+      parse_verb(client, request_lines)
       client.close
     end
+  end
+
+  def parse_verb(client, request_lines)
+    verb = request_lines[0].split(' ')[0]
+    if verb == 'GET'
+      response = html_wrapper(request_lines, parse_request(request_lines))
+      respond(client, response)
+    elsif verb == 'POST'
+      parse_post(client, request_lines)
+    end
+  end
+
+  def parse_post(client, request_lines)
+    path = request_lines[0].split[1]
+    if path == '/start_game'
+      #start new game
+      respond(client, 'Good luck!')
+    elsif path == '/game'
+      body = client.read(find_content_length(request_lines))
+      #put guess in game from body
+      game_redirect(client, request_lines)
+    end
+  end
+
+  def find_content_length(request_lines)
+    index = request_lines.map { |line| line.split(': ')[0] }.index('Content-Length')
+    request_lines[index].split(': ')[1].to_i
   end
 
   def parse_request(request_lines)
@@ -44,7 +65,7 @@ class HTTP
     when '/shutdown'
       @keep_alive = false
       shutdown_response
-    when 'game'
+    when '/game'
       game_response
     else
       default_response
@@ -84,7 +105,7 @@ class HTTP
   end
 
   def game_response
-
+    'you got to the game page'
   end
 
   def respond(client, output)
@@ -95,5 +116,14 @@ class HTTP
               "content-length: #{output.length}\r\n\r\n"].join("\r\n")
     client.puts headers
     client.puts output
+  end
+
+  def game_redirect(client, output)
+    headers = ["http/1.1 302 Redirect",
+              "Location: http://127.0.0.1/game",
+              "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
+              "server: ruby",
+              "content-type: text/html; charset=iso-8859-1\r\n\r\n"].join("\r\n")
+    client.puts headers
   end
 end
