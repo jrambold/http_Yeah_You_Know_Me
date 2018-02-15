@@ -10,8 +10,7 @@ class HTTP
     @total_requests = 0
     @keep_alive = true
     @dictionary = File.read('/usr/share/dict/words').split
-    @last_guess = nil
-    @game = nil
+    @game, @verb, @path, @params, @protocol, @request_data = nil
   end
 
   def start
@@ -21,70 +20,80 @@ class HTTP
       while (line = client.gets) && !line.chomp.empty?
         request_lines << line.chomp
       end
-      parse_verb(client, request_lines)
+      parse_data(request_lines)
+      parse_verb(client)
       client.close
     end
   end
 
-  def parse_verb(client, request_lines)
-    verb = request_lines[0].split(' ')[0]
-    if verb == 'GET'
-      response = html_wrapper(request_lines, parse_request(request_lines))
-      respond(client, response)
-    elsif verb == 'POST'
-      parse_post(client, request_lines)
+  def parse_data(request_lines)
+    type = request_lines[0].split
+    @verb = type[0]
+    @path = type[1].split('?')[0]
+    @params = type[1].split('?', 2)[1]
+    @protocol = type[2]
+    request_lines.delete_at(0)
+    parse_request_data(request_lines)
+  end
+
+  def parse_request_data(request_lines)
+    @request_data = {}
+    request_lines.each do |line|
+      data = line.split(': ', 2)
+      @request_data[data[0]] = data[1]
     end
   end
 
-  def parse_post(client, request_lines)
-    path = request_lines[0].split[1]
-    if path == '/start_game'
-      @game = GuessingGame.new
-      respond(client, 'Good luck!')
-    elsif path == '/game'
-      guess = client.read(find_content_length(request_lines)).split('=')[1]
-      @last_guess = [guess, @game.guess(guess.to_i)]
-      game_redirect(client)
+  def parse_verb(client)
+    if @verb == 'GET'
+      response = path_response
+      if response == '404 Not Found'
+        respond_not_found(client)
+      else
+        respond(client, html_wrapper(response))
+      end
+    elsif @verb == 'POST'
+      parse_post(client)
     end
   end
 
-  def find_content_length(request_lines)
-    index = request_lines.map { |line| line.split(': ')[0] }.index('Content-Length')
-    request_lines[index].split(': ')[1].to_i
-  end
-
-  def parse_request(request_lines)
+  def path_response
     @total_requests += 1
-    request = request_lines[0].split(' ')[1]
-    request = request.split('?')
-    case request[0]
+    case @path
+    when '/'
+      root_response
     when '/hello'
       hello_response
     when '/datetime'
       date_time_response
     when '/word_search'
-      word_search(request[1])
+      word_search
+    when '/game'
+      game_response
     when '/shutdown'
       @keep_alive = false
       shutdown_response
-    when '/game'
-      game_response
-    when '/'
-      default_response
     else
-      '404 Page Not Found'
+      '404 Not Found'
     end
   end
 
-  def html_wrapper(request_lines, body)
-    "<html><head></head><body>#{body}#{footer(request_lines)}</body></html>"
+  def parse_post(client)
+    if @path == '/start_game'
+      @game = GuessingGame.new
+      respond(client, 'Good luck!')
+    elsif @path == '/game'
+      guess = client.read(find_content_length).split('&')[0].split('=')[1].to_i
+      @game.guess(guess)
+      game_redirect(client)
+    end
   end
 
-  def footer(request_lines)
-    "<pre>#{request_lines.join("\n")}</pre>"
+  def find_content_length
+    @request_data['Content-Length'].to_i
   end
 
-  def default_response
+  def root_response
     @count += 1
     "Hello, World! (#{@count})"
   end
@@ -98,9 +107,8 @@ class HTTP
     Time.now.strftime('%r on %A, %B %e, %Y')
   end
 
-  def word_search(params)
-    params = params.split('&')
-    words = params.map { |param| param.split('=') }
+  def word_search
+    words = @params.split('&').map { |word| word.split('=') }
     if @dictionary.include?(words[0][1])
       "#{words[0][1]} is a known word"
     else
@@ -109,7 +117,23 @@ class HTTP
   end
 
   def game_response
-    "The last guess was #{@last_guess[0]} which was #{@last_guess[1]}\nTotal Guesses: #{@game.count}"
+    "The last guess was #{@game.last_guess} which was #{@game.over_under}\nTotal Guesses: #{@game.count}"
+  end
+
+  def html_wrapper(body)
+    "<html><head></head><body>#{body}#{footer}</body></html>"
+  end
+
+  def footer
+    "<pre>
+    Verb: #{@verb}
+    Path: #{@path}
+    Protocol: #{@protocol}
+    Host: #{@request_data['Host'].split(':')[0]}
+    Port: #{@request_data['Host'].split(':', 2)[1]}
+    Origin: '127.0.0.1'
+    Accept: #{@request_data['Accept']}
+    </pre>"
   end
 
   def respond(client, output)
@@ -129,5 +153,16 @@ class HTTP
               "server: ruby",
               "content-type: text/html; charset=iso-8859-1\r\n\r\n"].join("\r\n")
     client.puts headers
+  end
+
+  def respond_not_found(client)
+    output = html_wrapper('404 Not Found')
+    headers = ["http/1.1 404 Not Found",
+              "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
+              "server: ruby",
+              "content-type: text/html; charset=iso-8859-1",
+              "content-length: #{output.length}\r\n\r\n"].join("\r\n")
+    client.puts headers
+    client.puts output
   end
 end

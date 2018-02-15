@@ -1,6 +1,7 @@
 class GuessingGame
   attr_reader :answer,
-              :count
+              :count,
+              :last_guess
 
   def initialize
     @answer = Random.new.rand(101)
@@ -10,10 +11,13 @@ class GuessingGame
 
   def guess(value)
     @count += 1
-    @guess = value
-    if @answer > @guess
+    @last_guess = value
+  end
+
+  def over_under
+    if @answer > @last_guess
       'Too Low'
-    elsif @answer < @guess
+    elsif @answer < @last_guess
       'Too High'
     else
       'Correct!'
@@ -21,6 +25,6 @@ class GuessingGame
   end
 
   def correct?
-    @guess == @answer
+    @last_guess == @answer
   end
 end
