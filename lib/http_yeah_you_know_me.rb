@@ -9,8 +9,7 @@ class HTTP
     @count, @hello_count = [-1] * 2
     @total_requests = 0
     @keep_alive = true
-    @parsed = nil
-    @game = nil
+    @parsed, @game = [nil] * 2
     @dictionary = File.read('/usr/share/dict/words').split
   end
 
@@ -56,7 +55,6 @@ class HTTP
     when '/game'
       game_response
     when '/shutdown'
-      @keep_alive = false
       shutdown_response
     else
       '404 Not Found'
@@ -108,6 +106,7 @@ class HTTP
   end
 
   def shutdown_response
+    @keep_alive = false
     "Total Requests: #{@total_requests}"
   end
 
