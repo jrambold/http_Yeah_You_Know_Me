@@ -107,6 +107,10 @@ class HTTP
     "The last guess was #{@game.last_guess} which was #{@game.over_under}\nTotal Guesses: #{@game.count}"
   end
 
+  def shutdown_response
+    "Total Requests: #{@total_requests}"
+  end
+
   def error_response
     ArgumentError.new("Everything Broke")
   end
