@@ -1,3 +1,4 @@
+# Guessing between 0 to 100 game
 class GuessingGame
   attr_reader :answer,
               :count,

@@ -5,12 +5,11 @@ require './lib/guessing_game'
 class HTTP
   def initialize(port)
     @tcp_server = TCPServer.new(port)
-    @count = -1
-    @hello_count = -1
+    @count, @hello_count = [-1] * 2
     @total_requests = 0
     @keep_alive = true
     @dictionary = File.read('/usr/share/dict/words').split
-    @game, @verb, @path, @params, @protocol, @request_data = nil
+    @game, @verb, @path, @params, @protocol, @request_data = [nil] * 6
   end
 
   def start
@@ -79,9 +78,11 @@ class HTTP
   end
 
   def parse_post(client)
-    if @path == '/start_game'
+    if @path == '/start_game' && !@game
       @game = GuessingGame.new
-      respond(client, 'Good luck!')
+      game_start_redirect(client)
+    elsif @path == '/start_game'
+      respond_forbidden_game(client)
     elsif @path == '/game'
       guess = client.read(find_content_length).split('&')[0].split('=')[1].to_i
       @game.guess(guess)
@@ -146,6 +147,17 @@ class HTTP
     client.puts output
   end
 
+  def game_start_redirect(client)
+    output = 'Good luck!'
+    headers = ["http/1.1 301 Redirect",
+              "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
+              "server: ruby",
+              "content-type: text/html; charset=iso-8859-1",
+              "content-length: #{output.length}\r\n\r\n"].join("\r\n")
+    client.puts headers
+    client.puts output
+  end
+
   def game_redirect(client)
     headers = ["http/1.1 302 Redirect",
               "Location: http://127.0.0.1/game",
@@ -153,6 +165,17 @@ class HTTP
               "server: ruby",
               "content-type: text/html; charset=iso-8859-1\r\n\r\n"].join("\r\n")
     client.puts headers
+  end
+
+  def respond_forbidden_game(client)
+    output = html_wrapper('403 Forbidden - Game Already Started')
+    headers = ["http/1.1 403 Forbidden",
+              "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
+              "server: ruby",
+              "content-type: text/html; charset=iso-8859-1",
+              "content-length: #{output.length}\r\n\r\n"].join("\r\n")
+    client.puts headers
+    client.puts output
   end
 
   def respond_not_found(client)
