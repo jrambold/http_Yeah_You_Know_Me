@@ -112,7 +112,7 @@ class HTTP
   end
 
   def error_response
-    ArgumentError.new("Everything Broke")
+    ArgumentError.new('Everything Broke')
   end
 
   def html_wrapper(body)
