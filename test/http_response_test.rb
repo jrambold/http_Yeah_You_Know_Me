@@ -114,10 +114,20 @@ class HTTP_Response_Test < Minitest::Test
   def test_can_send_make_guess
     send = Faraday.new(:url => 'http://127.0.0.1:9292')
     send.post '/start_game'
-    response = send.post '/game', { :guess => 50 }
+    response = send.post '/game', { :guess => 1 }
 
     expect = 302
-
     assert_equal expect, response.status
+
+    response = Faraday.get 'http://127.0.0.1:9292/game'
+
+    expect = "<html><head></head><body>The last guess was 1 which was Too Low\nTotal Guesses: 1"
+    assert_equal expect, response.body.split("<pre>")[0]
+
+    send.post '/game', { :guess => 99 }
+    response = Faraday.get 'http://127.0.0.1:9292/game'
+
+    expect = "<html><head></head><body>The last guess was 99 which was Too High\nTotal Guesses: 2"
+    assert_equal expect, response.body.split("<pre>")[0]
   end
 end

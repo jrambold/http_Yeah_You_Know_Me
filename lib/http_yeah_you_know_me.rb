@@ -10,6 +10,8 @@ class HTTP
     @total_requests = 0
     @keep_alive = true
     @dictionary = File.read('/usr/share/dict/words').split
+    @last_guess = nil
+    @game = nil
   end
 
   def start
@@ -37,12 +39,12 @@ class HTTP
   def parse_post(client, request_lines)
     path = request_lines[0].split[1]
     if path == '/start_game'
-      #start new game
+      @game = GuessingGame.new
       respond(client, 'Good luck!')
     elsif path == '/game'
-      body = client.read(find_content_length(request_lines))
-      #put guess in game from body
-      game_redirect(client, request_lines)
+      guess = client.read(find_content_length(request_lines)).split('=')[1]
+      @last_guess = [guess, @game.guess(guess.to_i)]
+      game_redirect(client)
     end
   end
 
@@ -107,7 +109,7 @@ class HTTP
   end
 
   def game_response
-    'you got to the game page'
+    "The last guess was #{@last_guess[0]} which was #{@last_guess[1]}\nTotal Guesses: #{@game.count}"
   end
 
   def respond(client, output)
@@ -120,7 +122,7 @@ class HTTP
     client.puts output
   end
 
-  def game_redirect(client, output)
+  def game_redirect(client)
     headers = ["http/1.1 302 Redirect",
               "Location: http://127.0.0.1/game",
               "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
