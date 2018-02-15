@@ -1,5 +1,6 @@
 require 'socket'
 require './lib/guessing_game'
+require './lib/parser'
 
 # basic http server
 class HTTP
@@ -8,8 +9,8 @@ class HTTP
     @count, @hello_count = [-1] * 2
     @total_requests = 0
     @keep_alive = true
+    @parsed = nil
     @dictionary = File.read('/usr/share/dict/words').split
-    @game, @verb, @path, @params, @protocol, @request_data = [nil] * 6
   end
 
   def start
@@ -19,46 +20,30 @@ class HTTP
       while (line = client.gets) && !line.chomp.empty?
         request_lines << line.chomp
       end
-      parse_data(request_lines)
-      parse_verb(client)
+      @parsed = Parser.new(request_lines)
+      verb_decision(client)
       client.close
     end
   end
 
-  def parse_data(request_lines)
-    type = request_lines[0].split
-    @verb = type[0]
-    @path = type[1].split('?')[0]
-    @params = type[1].split('?', 2)[1]
-    @protocol = type[2]
-    request_lines.delete_at(0)
-    parse_request_data(request_lines)
-  end
-
-  def parse_request_data(request_lines)
-    @request_data = {}
-    request_lines.each do |line|
-      data = line.split(': ', 2)
-      @request_data[data[0]] = data[1]
-    end
-  end
-
-  def parse_verb(client)
-    if @verb == 'GET'
+  def verb_decision(client)
+    if @parsed.verb == 'GET'
       response = path_response
-      if response == '404 Not Found'
+      if @parsed.path == '/force_error'
+        respond_system_error(client, error_response)
+      elsif response == '404 Not Found'
         respond_not_found(client)
       else
         respond(client, html_wrapper(response))
       end
-    elsif @verb == 'POST'
+    elsif @parsed.verb == 'POST'
       parse_post(client)
     end
   end
 
   def path_response
     @total_requests += 1
-    case @path
+    case @parsed.path
     when '/'
       root_response
     when '/hello'
@@ -78,12 +63,12 @@ class HTTP
   end
 
   def parse_post(client)
-    if @path == '/start_game' && !@game
+    if @parsed.path == '/start_game' && !@game
       @game = GuessingGame.new
       game_start_redirect(client)
-    elsif @path == '/start_game'
+    elsif @parsed.path == '/start_game'
       respond_forbidden_game(client)
-    elsif @path == '/game'
+    elsif @parsed.path == '/game'
       guess = client.read(find_content_length).split('&')[0].split('=')[1].to_i
       @game.guess(guess)
       game_redirect(client)
@@ -91,7 +76,7 @@ class HTTP
   end
 
   def find_content_length
-    @request_data['Content-Length'].to_i
+    @parsed.request_data['Content-Length'].to_i
   end
 
   def root_response
@@ -109,7 +94,7 @@ class HTTP
   end
 
   def word_search
-    words = @params.split('&').map { |word| word.split('=') }
+    words = @parsed.params.split('&').map { |word| word.split('=') }
     if @dictionary.include?(words[0][1])
       "#{words[0][1]} is a known word"
     else
@@ -121,19 +106,23 @@ class HTTP
     "The last guess was #{@game.last_guess} which was #{@game.over_under}\nTotal Guesses: #{@game.count}"
   end
 
+  def error_response
+    ArgumentError.new("Everything Broke")
+  end
+
   def html_wrapper(body)
     "<html><head></head><body>#{body}#{footer}</body></html>"
   end
 
   def footer
     "<pre>
-    Verb: #{@verb}
-    Path: #{@path}
-    Protocol: #{@protocol}
-    Host: #{@request_data['Host'].split(':')[0]}
-    Port: #{@request_data['Host'].split(':', 2)[1]}
+    Verb: #{@parsed.verb}
+    Path: #{@parsed.path}
+    Protocol: #{@parsed.protocol}
+    Host: #{@parsed.request_data['Host'].split(':')[0]}
+    Port: #{@parsed.request_data['Host'].split(':', 2)[1]}
     Origin: '127.0.0.1'
-    Accept: #{@request_data['Accept']}
+    Accept: #{@parsed.request_data['Accept']}
     </pre>"
   end
 
@@ -187,5 +176,17 @@ class HTTP
               "content-length: #{output.length}\r\n\r\n"].join("\r\n")
     client.puts headers
     client.puts output
+  end
+
+  def respond_system_error(client, error)
+    output = html_wrapper("500 Internal Server Error\n#{error}")
+    headers = ["http/1.1 500 Not Found",
+              "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
+              "server: ruby",
+              "content-type: text/html; charset=iso-8859-1",
+              "content-length: #{output.length}\r\n\r\n"].join("\r\n")
+    client.puts headers
+    client.puts output
+    raise error
   end
 end
