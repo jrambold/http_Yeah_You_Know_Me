@@ -10,6 +10,7 @@ class HTTP
     @total_requests = 0
     @keep_alive = true
     @parsed = nil
+    @game = nil
     @dictionary = File.read('/usr/share/dict/words').split
   end
 

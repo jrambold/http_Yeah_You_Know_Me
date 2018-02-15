@@ -1,7 +1,6 @@
 # parses http info
 class Parser
-  attr_reader :game,
-              :verb,
+  attr_reader :verb,
               :path,
               :params,
               :protocol,
@@ -9,7 +8,7 @@ class Parser
 
   def initialize(request_lines)
     @request_lines = request_lines
-    @game, @verb, @path, @params, @protocol, @request_data = [nil] * 6
+    @verb, @path, @params, @protocol, @request_data = [nil] * 6
     parse_start_line
     parse_request_data
   end
