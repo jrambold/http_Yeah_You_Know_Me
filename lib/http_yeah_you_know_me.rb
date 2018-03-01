@@ -4,6 +4,15 @@ require './lib/parser'
 
 # basic http server
 class HTTP
+  attr_accessor :game
+  attr_reader :tcp_server,
+              :count,
+              :hello_count,
+              :total_requests,
+              :keep_alive,
+              :parsed,
+              :dictionary
+
   def initialize(port)
     @tcp_server = TCPServer.new(port)
     @count, @hello_count = [-1] * 2
@@ -20,10 +29,14 @@ class HTTP
       while (line = client.gets) && !line.chomp.empty?
         request_lines << line.chomp
       end
-      @parsed = Parser.new(request_lines)
+      parse(request_lines)
       verb_decision(client)
       client.close
     end
+  end
+
+  def parse(request_lines)
+    @parsed = Parser.new(request_lines)
   end
 
   def verb_decision(client)
@@ -120,14 +133,14 @@ class HTTP
 
   def footer
     "<pre>
-    Verb: #{@parsed.verb}
-    Path: #{@parsed.path}
-    Protocol: #{@parsed.protocol}
-    Host: #{@parsed.request_data['Host'].split(':')[0]}
-    Port: #{@parsed.request_data['Host'].split(':', 2)[1]}
-    Origin: '127.0.0.1'
-    Accept: #{@parsed.request_data['Accept']}
-    </pre>"
+Verb: #{@parsed.verb}
+Path: #{@parsed.path}
+Protocol: #{@parsed.protocol}
+Host: #{@parsed.request_data['Host'].split(':')[0]}
+Port: #{@parsed.request_data['Host'].split(':', 2)[1]}
+Origin: '127.0.0.1'
+Accept: #{@parsed.request_data['Accept']}
+</pre>"
   end
 
   def respond(client, output)
@@ -138,6 +151,7 @@ class HTTP
               "content-length: #{output.length}\r\n\r\n"].join("\r\n")
     client.puts headers
     client.puts output
+    'respond'
   end
 
   def game_start_redirect(client)
@@ -149,6 +163,7 @@ class HTTP
               "content-length: #{output.length}\r\n\r\n"].join("\r\n")
     client.puts headers
     client.puts output
+    'game_start_redirect'
   end
 
   def game_redirect(client)
@@ -158,6 +173,7 @@ class HTTP
               "server: ruby",
               "content-type: text/html; charset=iso-8859-1\r\n\r\n"].join("\r\n")
     client.puts headers
+    'game_redirect'
   end
 
   def respond_forbidden_game(client)
@@ -169,6 +185,7 @@ class HTTP
               "content-length: #{output.length}\r\n\r\n"].join("\r\n")
     client.puts headers
     client.puts output
+    'forbidden_game'
   end
 
   def respond_not_found(client)
@@ -180,6 +197,7 @@ class HTTP
               "content-length: #{output.length}\r\n\r\n"].join("\r\n")
     client.puts headers
     client.puts output
+    'not_found'
   end
 
   def respond_system_error(client, error)
@@ -191,6 +209,6 @@ class HTTP
               "content-length: #{output.length}\r\n\r\n"].join("\r\n")
     client.puts headers
     client.puts output
-    raise error
+    error
   end
 end

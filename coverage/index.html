@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-02-15T10:42:52-07:00">2018-02-15T10:42:52-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-03-01T14:26:07-07:00">2018-03-01T14:26:07-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">100.0%</span></span>
+    (<span class="covered_percent"><span class="green">93.96%</span></span>
      covered at
      <span class="covered_strength">
-       <span class="red">
-         0.0
+       <span class="green">
+         5.44
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
-    <b>0</b> files in total.
-    <b>0.0</b> relevant lines. 
-    <span class="green"><b>0.0</b> lines covered</span> and
-    <span class="red"><b>0.0</b> lines missed </span>
+    <b>3</b> files in total.
+    <b>149</b> relevant lines. 
+    <span class="green"><b>140</b> lines covered</span> and
+    <span class="red"><b>9</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -49,6 +49,36 @@
       </tr>
     </thead>
     <tbody>
+      
+      <tr>
+        <td class="strong"><a href="#7649af3cdd54679e52d9ba365f09f56377d58a5f" class="src_link" title="lib/guessing_game.rb">lib/guessing_game.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>31</td>
+        <td>17</td>
+        <td>17</td>
+        <td>0</td>
+        <td>3.6</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#f2cd9a17dabdcd825d4eb4b8e09947947cfbba7f" class="src_link" title="lib/http_yeah_you_know_me.rb">lib/http_yeah_you_know_me.rb</a></td>
+        <td class="green strong">92.04 %</td>
+        <td>214</td>
+        <td>113</td>
+        <td>104</td>
+        <td>9</td>
+        <td>3.2</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#ede5642b6865cb645e8e2eeb14c0028a09ac3efa" class="src_link" title="lib/parser.rb">lib/parser.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>32</td>
+        <td>19</td>
+        <td>19</td>
+        <td>0</td>
+        <td>20.4</td>
+      </tr>
       
     </tbody>
   </table>
@@ -65,6 +95,1725 @@
       </div>
     
       <div class="source_files">
+      
+        <div class="source_table" id="7649af3cdd54679e52d9ba365f09f56377d58a5f">
+  <div class="header">
+    <h3>lib/guessing_game.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>17</b> relevant lines. 
+      <span class="green"><b>17</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="never" data-hits="" data-linenumber="1">
+          
+          
+          <code class="ruby"># Guessing between 0 to 100 game</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class GuessingGame</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_reader :answer,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby">              :count,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">              :last_guess</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize</code>
+        </li>
+      
+        <li class="covered" data-hits="8" data-linenumber="8">
+          <span class="hits">8</span>
+          
+          <code class="ruby">    @answer = Random.new.rand(101)</code>
+        </li>
+      
+        <li class="covered" data-hits="8" data-linenumber="9">
+          <span class="hits">8</span>
+          
+          <code class="ruby">    @guess = nil</code>
+        </li>
+      
+        <li class="covered" data-hits="8" data-linenumber="10">
+          <span class="hits">8</span>
+          
+          <code class="ruby">    @count = 0</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="12">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="13">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def guess(value)</code>
+        </li>
+      
+        <li class="covered" data-hits="10" data-linenumber="14">
+          <span class="hits">10</span>
+          
+          <code class="ruby">    @count += 1</code>
+        </li>
+      
+        <li class="covered" data-hits="10" data-linenumber="15">
+          <span class="hits">10</span>
+          
+          <code class="ruby">    @last_guess = value</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="16">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="17">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="18">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def over_under</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="19">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    if @answer &gt; @last_guess</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="20">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      &#39;Too Low&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="21">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    elsif @answer &lt; @last_guess</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="22">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      &#39;Too High&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby">    else</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="24">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      &#39;Correct!&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="25">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="26">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="27">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="28">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def correct?</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="29">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    @last_guess == @answer</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="30">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="31">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="f2cd9a17dabdcd825d4eb4b8e09947947cfbba7f">
+  <div class="header">
+    <h3>lib/http_yeah_you_know_me.rb</h3>
+    <h4><span class="green">92.04 %</span> covered</h4>
+    <div>
+      <b>113</b> relevant lines. 
+      <span class="green"><b>104</b> lines covered</span> and
+      <span class="red"><b>9</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;socket&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;./lib/guessing_game&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;./lib/parser&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby"># basic http server</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class HTTP</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_accessor :game</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="8">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_reader :tcp_server,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="9">
+          
+          
+          <code class="ruby">              :count,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
+          
+          
+          <code class="ruby">              :hello_count,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
+          
+          
+          <code class="ruby">              :total_requests,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="12">
+          
+          
+          <code class="ruby">              :keep_alive,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
+          
+          
+          <code class="ruby">              :parsed,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby">              :dictionary</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="15">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="16">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(port)</code>
+        </li>
+      
+        <li class="covered" data-hits="21" data-linenumber="17">
+          <span class="hits">21</span>
+          
+          <code class="ruby">    @tcp_server = TCPServer.new(port)</code>
+        </li>
+      
+        <li class="covered" data-hits="21" data-linenumber="18">
+          <span class="hits">21</span>
+          
+          <code class="ruby">    @count, @hello_count = [-1] * 2</code>
+        </li>
+      
+        <li class="covered" data-hits="21" data-linenumber="19">
+          <span class="hits">21</span>
+          
+          <code class="ruby">    @total_requests = 0</code>
+        </li>
+      
+        <li class="covered" data-hits="21" data-linenumber="20">
+          <span class="hits">21</span>
+          
+          <code class="ruby">    @keep_alive = true</code>
+        </li>
+      
+        <li class="covered" data-hits="21" data-linenumber="21">
+          <span class="hits">21</span>
+          
+          <code class="ruby">    @parsed, @game = [nil] * 2</code>
+        </li>
+      
+        <li class="covered" data-hits="21" data-linenumber="22">
+          <span class="hits">21</span>
+          
+          <code class="ruby">    @dictionary = File.read(&#39;/usr/share/dict/words&#39;).split</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="25">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def start</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="26">
+          
+          
+          <code class="ruby">    while @keep_alive</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="27">
+          
+          
+          <code class="ruby">      client = @tcp_server.accept</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="28">
+          
+          
+          <code class="ruby">      request_lines = []</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="29">
+          
+          
+          <code class="ruby">      while (line = client.gets) &amp;&amp; !line.chomp.empty?</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="30">
+          
+          
+          <code class="ruby">        request_lines &lt;&lt; line.chomp</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="31">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="32">
+          
+          
+          <code class="ruby">      parse(request_lines)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="33">
+          
+          
+          <code class="ruby">      verb_decision(client)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="34">
+          
+          
+          <code class="ruby">      client.close</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="35">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="36">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="37">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="38">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def parse(request_lines)</code>
+        </li>
+      
+        <li class="covered" data-hits="23" data-linenumber="39">
+          <span class="hits">23</span>
+          
+          <code class="ruby">    @parsed = Parser.new(request_lines)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="40">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="41">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="42">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def verb_decision(client)</code>
+        </li>
+      
+        <li class="covered" data-hits="5" data-linenumber="43">
+          <span class="hits">5</span>
+          
+          <code class="ruby">    if @parsed.verb == &#39;GET&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="44">
+          <span class="hits">4</span>
+          
+          <code class="ruby">      response = path_response</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="45">
+          <span class="hits">4</span>
+          
+          <code class="ruby">      if @parsed.path == &#39;/force_error&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="46">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        respond_system_error(client, error_response)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="47">
+          <span class="hits">3</span>
+          
+          <code class="ruby">      elsif response == &#39;404 Not Found&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="48">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        respond_not_found(client)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="49">
+          
+          
+          <code class="ruby">      else</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="50">
+          <span class="hits">2</span>
+          
+          <code class="ruby">        respond(client, html_wrapper(response))</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="51">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="52">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    elsif @parsed.verb == &#39;POST&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="53">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      parse_post(client)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="54">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="55">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="56">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="57">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def path_response</code>
+        </li>
+      
+        <li class="covered" data-hits="10" data-linenumber="58">
+          <span class="hits">10</span>
+          
+          <code class="ruby">    @total_requests += 1</code>
+        </li>
+      
+        <li class="covered" data-hits="10" data-linenumber="59">
+          <span class="hits">10</span>
+          
+          <code class="ruby">    case @parsed.path</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="60">
+          
+          
+          <code class="ruby">    when &#39;/&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="61">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      root_response</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="62">
+          
+          
+          <code class="ruby">    when &#39;/hello&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="63">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      hello_response</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="64">
+          
+          
+          <code class="ruby">    when &#39;/datetime&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="65">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      date_time_response</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="66">
+          
+          
+          <code class="ruby">    when &#39;/word_search&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="67">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      word_search</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="68">
+          
+          
+          <code class="ruby">    when &#39;/game&#39;</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="69">
+          
+          
+          <code class="ruby">      game_response</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="70">
+          
+          
+          <code class="ruby">    when &#39;/shutdown&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="71">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      shutdown_response</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="72">
+          
+          
+          <code class="ruby">    else</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="73">
+          <span class="hits">3</span>
+          
+          <code class="ruby">      &#39;404 Not Found&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="74">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="75">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="76">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="77">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def parse_post(client)</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="78">
+          <span class="hits">4</span>
+          
+          <code class="ruby">    if @parsed.path == &#39;/start_game&#39; &amp;&amp; !@game</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="79">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      @game = GuessingGame.new</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="80">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      game_start_redirect(client)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="81">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    elsif @parsed.path == &#39;/start_game&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="82">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      respond_forbidden_game(client)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="83">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    elsif @parsed.path == &#39;/game&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="84">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      guess = client.read(find_content_length).split(&#39;&amp;&#39;)[0].split(&#39;=&#39;)[1].to_i</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="85">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @game.guess(guess)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="86">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      game_redirect(client)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="87">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="88">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="89">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="90">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def find_content_length</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="91">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    @parsed.request_data[&#39;Content-Length&#39;].to_i</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="92">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="93">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="94">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def root_response</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="95">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    @count += 1</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="96">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    &quot;Hello, World! (#{@count})&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="97">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="98">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="99">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def hello_response</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="100">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @hello_count += 1</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="101">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    &quot;Hello, World! (#{@hello_count})&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="102">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="103">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="104">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def date_time_response</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="105">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    Time.now.strftime(&#39;%r on %A, %B %e, %Y&#39;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="106">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="107">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="108">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def word_search</code>
+        </li>
+      
+        <li class="covered" data-hits="6" data-linenumber="109">
+          <span class="hits">6</span>
+          
+          <code class="ruby">    words = @parsed.params.split(&#39;&amp;&#39;).map { |word| word.split(&#39;=&#39;) }</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="110">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    if @dictionary.include?(words[0][1])</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="111">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      &quot;#{words[0][1]} is a known word&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="112">
+          
+          
+          <code class="ruby">    else</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="113">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      &quot;#{words[0][1]} is not a known word&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="114">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="115">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="116">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="117">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def game_response</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="118">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    &quot;The last guess was #{@game.last_guess} which was #{@game.over_under}\nTotal Guesses: #{@game.count}&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="119">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="120">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="121">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def shutdown_response</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="122">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    @keep_alive = false</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="123">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    &quot;Total Requests: #{@total_requests}&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="124">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="125">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="126">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def error_response</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="127">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    ArgumentError.new(&#39;Everything Broke&#39;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="128">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="129">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="130">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def html_wrapper(body)</code>
+        </li>
+      
+        <li class="covered" data-hits="9" data-linenumber="131">
+          <span class="hits">9</span>
+          
+          <code class="ruby">    &quot;&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;#{body}#{footer}&lt;/body&gt;&lt;/html&gt;&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="132">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="133">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="134">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def footer</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="135">
+          
+          
+          <code class="ruby">    &quot;&lt;pre&gt;</code>
+        </li>
+      
+        <li class="covered" data-hits="10" data-linenumber="136">
+          <span class="hits">10</span>
+          
+          <code class="ruby">Verb: #{@parsed.verb}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="137">
+          
+          
+          <code class="ruby">Path: #{@parsed.path}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="138">
+          
+          
+          <code class="ruby">Protocol: #{@parsed.protocol}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="139">
+          
+          
+          <code class="ruby">Host: #{@parsed.request_data[&#39;Host&#39;].split(&#39;:&#39;)[0]}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="140">
+          
+          
+          <code class="ruby">Port: #{@parsed.request_data[&#39;Host&#39;].split(&#39;:&#39;, 2)[1]}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="141">
+          
+          
+          <code class="ruby">Origin: &#39;127.0.0.1&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="142">
+          
+          
+          <code class="ruby">Accept: #{@parsed.request_data[&#39;Accept&#39;]}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="143">
+          
+          
+          <code class="ruby">&lt;/pre&gt;&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="144">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="145">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="146">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def respond(client, output)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="147">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    headers = [&quot;http/1.1 200 ok&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="148">
+          
+          
+          <code class="ruby">              &quot;date: #{Time.now.strftime(&#39;%a, %e %b %Y %H:%M:%S %z&#39;)}&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="149">
+          
+          
+          <code class="ruby">              &quot;server: ruby&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="150">
+          
+          
+          <code class="ruby">              &quot;content-type: text/html; charset=iso-8859-1&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="151">
+          
+          
+          <code class="ruby">              &quot;content-length: #{output.length}\r\n\r\n&quot;].join(&quot;\r\n&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="152">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    client.puts headers</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="153">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    client.puts output</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="154">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    &#39;respond&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="155">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="156">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="157">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def game_start_redirect(client)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="158">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    output = &#39;Good luck!&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="159">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    headers = [&quot;http/1.1 301 Redirect&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="160">
+          
+          
+          <code class="ruby">              &quot;date: #{Time.now.strftime(&#39;%a, %e %b %Y %H:%M:%S %z&#39;)}&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="161">
+          
+          
+          <code class="ruby">              &quot;server: ruby&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="162">
+          
+          
+          <code class="ruby">              &quot;content-type: text/html; charset=iso-8859-1&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="163">
+          
+          
+          <code class="ruby">              &quot;content-length: #{output.length}\r\n\r\n&quot;].join(&quot;\r\n&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="164">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    client.puts headers</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="165">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    client.puts output</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="166">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    &#39;game_start_redirect&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="167">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="168">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="169">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def game_redirect(client)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="170">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    headers = [&quot;http/1.1 302 Redirect&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="171">
+          
+          
+          <code class="ruby">              &quot;Location: http://127.0.0.1/game&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="172">
+          
+          
+          <code class="ruby">              &quot;date: #{Time.now.strftime(&#39;%a, %e %b %Y %H:%M:%S %z&#39;)}&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="173">
+          
+          
+          <code class="ruby">              &quot;server: ruby&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="174">
+          
+          
+          <code class="ruby">              &quot;content-type: text/html; charset=iso-8859-1\r\n\r\n&quot;].join(&quot;\r\n&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="175">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    client.puts headers</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="176">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    &#39;game_redirect&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="177">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="178">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="179">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def respond_forbidden_game(client)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="180">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    output = html_wrapper(&#39;403 Forbidden - Game Already Started&#39;)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="181">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    headers = [&quot;http/1.1 403 Forbidden&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="182">
+          
+          
+          <code class="ruby">              &quot;date: #{Time.now.strftime(&#39;%a, %e %b %Y %H:%M:%S %z&#39;)}&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="183">
+          
+          
+          <code class="ruby">              &quot;server: ruby&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="184">
+          
+          
+          <code class="ruby">              &quot;content-type: text/html; charset=iso-8859-1&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="185">
+          
+          
+          <code class="ruby">              &quot;content-length: #{output.length}\r\n\r\n&quot;].join(&quot;\r\n&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="186">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    client.puts headers</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="187">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    client.puts output</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="188">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    &#39;forbidden_game&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="189">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="190">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="191">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def respond_not_found(client)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="192">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    output = html_wrapper(&#39;404 Not Found&#39;)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="193">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    headers = [&quot;http/1.1 404 Not Found&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="194">
+          
+          
+          <code class="ruby">              &quot;date: #{Time.now.strftime(&#39;%a, %e %b %Y %H:%M:%S %z&#39;)}&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="195">
+          
+          
+          <code class="ruby">              &quot;server: ruby&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="196">
+          
+          
+          <code class="ruby">              &quot;content-type: text/html; charset=iso-8859-1&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="197">
+          
+          
+          <code class="ruby">              &quot;content-length: #{output.length}\r\n\r\n&quot;].join(&quot;\r\n&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="198">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    client.puts headers</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="199">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    client.puts output</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="200">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    &#39;not_found&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="201">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="202">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="203">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def respond_system_error(client, error)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="204">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    output = html_wrapper(&quot;500 Internal Server Error\n#{error}&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="205">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    headers = [&quot;http/1.1 500 Not Found&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="206">
+          
+          
+          <code class="ruby">              &quot;date: #{Time.now.strftime(&#39;%a, %e %b %Y %H:%M:%S %z&#39;)}&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="207">
+          
+          
+          <code class="ruby">              &quot;server: ruby&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="208">
+          
+          
+          <code class="ruby">              &quot;content-type: text/html; charset=iso-8859-1&quot;,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="209">
+          
+          
+          <code class="ruby">              &quot;content-length: #{output.length}\r\n\r\n&quot;].join(&quot;\r\n&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="210">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    client.puts headers</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="211">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    client.puts output</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="212">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    error</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="213">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="214">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="ede5642b6865cb645e8e2eeb14c0028a09ac3efa">
+  <div class="header">
+    <h3>lib/parser.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>19</b> relevant lines. 
+      <span class="green"><b>19</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="never" data-hits="" data-linenumber="1">
+          
+          
+          <code class="ruby"># parses http info</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class Parser</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  attr_reader :verb,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby">              :path,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">              :params,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby">              :protocol,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="7">
+          
+          
+          <code class="ruby">              :request_data</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def initialize(request_lines)</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="10">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    @request_lines = request_lines</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="11">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    @verb, @path, @params, @protocol, @request_data = [nil] * 6</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="12">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    parse_start_line</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="13">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    parse_request_data</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="15">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="16">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def parse_start_line</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="17">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    type = @request_lines[0].split</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="18">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    @verb = type[0]</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="19">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    @path = type[1].split(&#39;?&#39;)[0]</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="20">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    @params = type[1].split(&#39;?&#39;, 2)[1]</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="21">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    @protocol = type[2]</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="22">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    @request_lines.delete_at(0)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="25">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def parse_request_data</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="26">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    @request_data = {}</code>
+        </li>
+      
+        <li class="covered" data-hits="25" data-linenumber="27">
+          <span class="hits">25</span>
+          
+          <code class="ruby">    @request_lines.each do |line|</code>
+        </li>
+      
+        <li class="covered" data-hits="41" data-linenumber="28">
+          <span class="hits">41</span>
+          
+          <code class="ruby">      data = line.split(&#39;: &#39;, 2)</code>
+        </li>
+      
+        <li class="covered" data-hits="41" data-linenumber="29">
+          <span class="hits">41</span>
+          
+          <code class="ruby">      @request_data[data[0]] = data[1]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="30">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="31">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="32">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
       
       </div>
     </div>
