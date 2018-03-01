@@ -115,6 +115,18 @@ class HTTPTest < Minitest::Test
 
     assert_equal '404 Not Found', @server.path_response
 
+    game = GuessingGame.new
+    game.guess(-1)
+    @server.game = game
+    expected = "The last guess was -1 which was Too Low\nTotal Guesses: 1"
+
+    http_sample = ['GET /game HTTP/1.1',
+                  'Host: 127.0.0.1:9292']
+    @server.parse(http_sample)
+
+    assert_equal expected, @server.path_response
+
+
     @server.tcp_server.close
   end
 
